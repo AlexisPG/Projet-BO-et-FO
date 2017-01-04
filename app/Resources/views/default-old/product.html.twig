@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+<h1>1. Afficher le titre et la description de tous les produits</h1>
+<ul>
+    {% for product in products %}
+        <li>{{ product.title }} : {{ product.description }}</li>
+    {% endfor %}
+</ul>
+
+
+<h1>2- Afficher uniquement pour le premier produit la phrase suivante en plus : "Ceci est le premier produit" (ne pas utiliser id pour faire son test)</h1>
+
+{% for product in products %}
+
+	{% if loop.first %}<p>Ceci est le premier produit</p>{% endif %}
+		<p>{{ product.title }} : {{ product.description }}</p>
+
+{% endfor %}
+
+
+
+
+<h1>3. Afficher le nombre de produits en utilisant un filter</h1>
+    <p>{{ products|length }}</p>
+
+<h1>4- Afficher pour le produit ayant l'id 4 un titre par défaut</h1>
+
+{% for product in products %}
+    <p>{{ product.title|default('ce champ est inexistant') }}</p>
+{% endfor %}
+
+<h1>5- Parcourez de nouveau les produits mais dans l'ordre inverse</h1>
+
+ {% for product in products|reverse %}
+    <p>{{ product.title }}</p>
+ {% endfor %}
+
+<h1>6- Parcourez de nouveau les produits mais affichez uniquement le produit 2 et 3</h1>
+ {% for product in products %}
+ 		{% if loop.first == false and loop.last == false %}
+    	<p>{{ product.title }}</p>
+    {% endif %}
+ {% endfor %}
+
+
+
+<h1>7- parcourez le tableau afin de faire le total des prix</h1>
+
+{% set total = 0 %}
+{% for product in products %}
+		{% set total = total + product.prix %}
+{% endfor %}
+ 
+ <p>Le total est : {{ total }} €</p>
+
+<h1>8- Utiliser un filter afin d afficher en majuscule le titre des produits</h1>
+{% for product in products %}
+    <p>{{ product.title|upper }}</p>
+ {% endfor %}
+
+<h1>9- Trouver la fonction twig permettant de compter de 0 à 10 avec un pas de 2 ;)</h1>
+
+<h1> 10- Créer une variable avec votre prénom dans le controller. Créer une autre variable avec votre nom dans le controller. 
+et 
+11- Afficher dans la vue votre prénom et votre nom en faisant une concaténation</h1>
+
+<p>{{ prenom~" "~nom }}</p>
+
+
+<h1> 12- Afficher grâce à la catégorie test dans la documentation de twig, les produits impairs (ordre des produits dans le tableau)</h1>
+
+ http://twig.sensiolabs.org/doc/tests/odd.html
+ http://twig.sensiolabs.org/doc/tests/even.html
+
+<h1> 13- Corriger le code ci-dessous sans toucher au controller afin d eviter une erreur en utilisant la catégorie test</h1>
+ {{ mischievous|default("rien") }}
+ {% if mischievous is defined %}
+ 		{{ mischievous }}
+{% endif %}
+<h1>14- Parcourez de nouveau les produits mais afficher uniquement les produits ayant un titre</h1>
+
+{% for product in products if product.title is not empty %}
+	{{ product.title }}
+{% endfor %}
+
+
+{% endblock body %}
+

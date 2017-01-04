@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1><span>Welcome to</span> Contact {{ firstname }} {{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION') }}</h1>
+                <h2><a href="{{ path('homepage') }}">Lien vers la page d'accueil</a></h2>
+            </div>
+        </div>
+    </div>
+    {{ dump(firstname) }}
+
+
+{% endblock body %}

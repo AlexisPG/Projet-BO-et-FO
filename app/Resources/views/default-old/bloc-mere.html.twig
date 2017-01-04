@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Mon site | {% block title %} Mere {% endblock title %}</title>
+        <meta description="{% block description %}Mere{% endblock description %}"
+    </head>
+    <body>
+	    {% block titre %}
+	      	<h1>Ceci est le titre de ma page mère</h1>
+	    {% endblock titre %}
+	    {% block nav %}
+		    <nav>
+		    <ul>
+		    	<li><a href="bloc-mere">Page mère</a></li>
+		    	<li><a href="bloc-fille">Page fille</a></li>
+		    	<li><a href="bloc-frere">Page frere</a></li>
+		    </ul>
+		    </nav>
+	    {% endblock nav %}
+    </body>
+</html>
