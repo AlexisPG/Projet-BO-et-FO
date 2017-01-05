@@ -12,6 +12,7 @@
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <!-- Ionicons -->
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset("dist/css/AdminLTE.min.css") }}">
@@ -68,6 +69,16 @@
 
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset("dist/js/demo.js") }}"></script>
+
+    {# Pour Datepicker#}
+    <script>
+        $(document).ready(function()
+                {
+                    $(".datepicker").datepicker();
+                });
+    </script>
+
+
 {%  endblock javascript %}
 </body>
 </html>

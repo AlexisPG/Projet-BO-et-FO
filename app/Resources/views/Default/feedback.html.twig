@@ -1,0 +1,44 @@
+{% extends 'layout.html.twig' %}
+
+{% block titleContent %}
+    <h1>Page catégories de Feedback </h1>
+
+{% endblock %}
+
+{% block content %}
+
+    {# Affichage du message de success	#}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">{#Permet de mettre le message en vert, au niveau de la class#}
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
+
+
+    {#Création du formulaire de cointact depuis le cotnroller DefaultController.php #}
+    {{ form_start(formFeedback) }}
+
+
+
+    <div class="form-group">
+        {{ form_errors(formFeedback.date) }}
+
+
+        {{ form_label(formFeedback.date, null) }}
+
+        {{ form_widget(formFeedback.date,
+            {
+                attr:
+                {
+                    class: "datepicker"
+                }
+            })
+        }}
+    </div>
+
+
+
+            <button>Envoyer</button>
+    {{ form_end(formFeedback) }}
+{% endblock content %}
