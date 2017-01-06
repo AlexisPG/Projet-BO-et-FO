@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    {# Affichage du message de success	#}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">{#Permet de mettre le message en vert, au niveau de la class#}
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    {{ form_start(formProduct) }}
+
+    {{ form_row(formProduct) }}
+
+    <button>Ajouter</button>
+
+    {{ form_end(formProduct) }}
+
+{% endblock content %}

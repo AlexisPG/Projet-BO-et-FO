@@ -36,7 +36,7 @@
                     <th>ID</th>
                     <th>Titre</th>
                     <th>Description</th>
-                    <th>Date</th>
+                    {#<th>Date</th>#}
                     <th>Prix</th>
                     <th></th>
                     <th></th>
@@ -49,13 +49,26 @@
                         <td>{{ product.id }}</td>
                         <td>{{ product.title|default('Produit sans nom') }}</td>
                         <td>{{ product.description }}</td>
+                        <td>{{ product.price }} €</td>
+                        <td><a href="{{ path("show_product", { id:product.id }) }}" class="btn btn-success">Voir</a></td>
+                        <td><a href="#" class="btn btn-primary">Modifier</a></td>
+                        <td><a href="#" class="btn btn-danger">Supprimer</a></td>
+                    </tr>
+                {% endfor %}
+{#
+                    Code utilisant le tableau en du depuis le controller ProductController.php
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.id }}</td>
+                        <td>{{ product.title|default('Produit sans nom') }}</td>
+                        <td>{{ product.description }}</td>
                         <td>{{ product.date_created|date("m/d/Y") }}</td>
                         <td>{{ product.prix }} €</td>
                         <td><a href="{{ path("show_product", { id:product.id }) }}" class="btn btn-success">Voir</a></td>
                         <td><a href="#" class="btn btn-primary">Modifier</a></td>
                         <td><a href="#" class="btn btn-danger">Supprimer</a></td>
                     </tr>
-                {% endfor %}
+                {% endfor %}#}
                 </tr>
                 </tbody>
                 <tfoot>
@@ -63,7 +76,7 @@
                     <th>ID</th>
                     <th>TITRE</th>
                     <th>Description</th>
-                    <th>Date</th>
+                    {#<th>Date</th>#}
                     <th>Prix moyen : {{ product_Sum / products|length }} €</th>
                     <th></th>
                     <th></th>

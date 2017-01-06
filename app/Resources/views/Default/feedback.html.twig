@@ -1,12 +1,10 @@
 {% extends 'layout.html.twig' %}
 
 {% block titleContent %}
-    <h1>Page catégories de Feedback </h1>
-
+    <h1>Feedback </h1>
 {% endblock %}
 
 {% block content %}
-
     {# Affichage du message de success	#}
     {% for flash_message in app.session.flashBag.get('success') %}
         <div class="alert alert-success">{#Permet de mettre le message en vert, au niveau de la class#}
@@ -14,19 +12,43 @@
         </div>
     {% endfor %}
 
-
-
     {#Création du formulaire de cointact depuis le cotnroller DefaultController.php #}
-    {{ form_start(formFeedback) }}
-
+    {{ form_start(formFeedback, {attr: {class:"toto", novalidate:"novalidate"}} ) }}
 
 
     <div class="form-group">
+        {{ form_errors(formFeedback.page) }}
+        {{ form_label(formFeedback.page, null) }}
+        {{ form_widget(formFeedback.page, {attr: {placeholder: "Votre nom", class: "form-control"}} ) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(formFeedback.bug) }}
+        {{ form_label(formFeedback.bug, null) }}
+        {{ form_widget(formFeedback.bug, {attr: {placeholder: "Votre nom", class: "form-control"}} ) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(formFeedback.firstname) }}
+        {{ form_label(formFeedback.firstname, null) }}
+        {{ form_widget(formFeedback.firstname, {attr: {placeholder: "Votre nom", class: "form-control"}} ) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(formFeedback.lastname) }}
+        {{ form_label(formFeedback.lastname, null) }}
+        {{ form_widget(formFeedback.lastname, {attr: {placeholder: "Votre nom", class: "form-control"}} ) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(formFeedback.email) }}
+        {{ form_label(formFeedback.email, null) }}
+        {{ form_widget(formFeedback.email, {attr: {placeholder: "Votre nom", class: "form-control"}} ) }}
+    </div>
+
+    <div class="form-group">
         {{ form_errors(formFeedback.date) }}
-
-
         {{ form_label(formFeedback.date, null) }}
-
         {{ form_widget(formFeedback.date,
             {
                 attr:
@@ -37,8 +59,12 @@
         }}
     </div>
 
+    <div class="form-group">
+        {{ form_errors(formFeedback.content) }}
+        {{ form_label(formFeedback.content, null) }}
+        {{ form_widget(formFeedback.content) }}
+    </div>
 
-
-            <button>Envoyer</button>
+    <button>Envoyer</button>
     {{ form_end(formFeedback) }}
 {% endblock content %}

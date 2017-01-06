@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class DefaultController extends Controller
 {
@@ -30,10 +31,41 @@ class DefaultController extends Controller
     {
         // Création du formulaire et ajoute de champ avec la méthode add()
         $formContact = $this->createFormBuilder()
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('content', TextareaType::class)
+            ->add('firstname', TextType::class, [
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer votre prénom']),
+                        new Assert\Length([
+                            'min' => 2,
+                            'minMessage' => 'Your first name must be at least {{ limit }} characters long'
+                        ])
+                    ]
+            ])
+            ->add('lastname', TextType::class, [
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer votre nom'])
+                    ]
+            ])
+            ->add('email', EmailType::class, [
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer un email']),
+                        new Assert\Email([
+                            'message' => 'Votre email {{ value }} est faux'
+                        ])
+                    ]
+            ])
+            ->add('content', TextareaType::class, [
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer votre message']),
+                        new Assert\Length([
+                            'max' => 50,
+                            'maxMessage' => 'Votre message doit avoir {{ limit }} caractères minimum'
+                        ])
+                    ]
+            ])
             ->getForm();
 
         // Je lie l'objet $request avec le formulaire.
@@ -73,23 +105,23 @@ class DefaultController extends Controller
                         ]),
                     'text/html'
                 )
-/*
-                ->setBody(
-                    $this->renderView('Emails/formulaire-contact.html.twig',
-                        [
-                            'firstname' => ($data['firstname']),
-                            'lastname' => ($data['lastname']),
-                            'email' => ($data['email']),
-                            'content' => ($data['content']),
-                        ]),
-                    'text/html'
-                )
-*/
+                /*
+                                ->setBody(
+                                    $this->renderView('Emails/formulaire-contact.html.twig',
+                                        [
+                                            'firstname' => ($data['firstname']),
+                                            'lastname' => ($data['lastname']),
+                                            'email' => ($data['email']),
+                                            'content' => ($data['content']),
+                                        ]),
+                                    'text/html'
+                                )
+                */
                 ->addPart(
                     $this->renderView('Emails/formulaire-contact.txt.twig',
-                    [
-                        'data' => $data
-                    ]),
+                        [
+                            'data' => $data
+                        ]),
                     'text/plain'
                 );
             $this->get('mailer')->send($message);
@@ -112,19 +144,61 @@ class DefaultController extends Controller
      */
     public function feedbackAction(Request $request)
     {
+
+        $choice = [
+            "technique" => "1",
+            "design" => "2",
+            "marketing" => "3",
+            "autre" => "4",
+        ];
+
         $formFeedback = $this->createFormBuilder()
-            ->add('page', TextType::class)
-            ->add('bug', ChoiceType::class, array(
-                "choices" => array(
-                    "technique" => "1",
-                    "design" => "2",
-                    "marketing" => "3",
-                    "autre" => "4",
-                )
-            ))
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('email', EmailType::class)
+            ->add('page', TextType::class, [
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez indiquer une page de feedback']),
+                        new Assert\Url(['message' => 'Veuillez indiquer une page valide, car {{ value }} n\'est pas au bon format.'])
+                    ]
+            ])
+            ->add('bug', ChoiceType::class,
+                [
+                    "choices" => $choice
+                ],
+                [
+                    'constraints' => [
+                        new Assert\NotBlank(['message' => 'Veuillez sélectionner un choix']),
+                        new Assert\Choice([
+                            'choices' => $choice,
+                            'message' => 'Attention'
+                            ])
+                    ]
+                ]
+            )
+            ->add('firstname', TextType::class,
+                [
+                    'constraints' => [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer votre prénom'])
+                    ]
+                ]
+            )
+            ->add('lastname', TextType::class,
+                [
+                    'constraints' => [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer votre nom'])
+                    ]
+                ]
+            )
+            ->add('email', EmailType::class, [
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer un email']),
+                        new Assert\Email([
+                            'message' => 'Votre emaoil {{ value }} est faux'
+                        ])
+                    ]
+            ])
+
+            // ------------DATE
             // La clé years permet de définir un tableau d'années
             // range créer un tableau : http://php.net/manual/fr/function.range.php
             // date('Y') donne l'année en cours. Ici 2017
@@ -132,11 +206,36 @@ class DefaultController extends Controller
             ->add('date', DateType::class,
                 [
                     "widget" => "single_text",
-                    "html5" => false
+                    "html5" => false,
                     // 'years' => range( date('Y')-10, date('Y')+10 ),
-                    // 'format' => 'dd-MMMM-yyyy'
-                ])
-            ->add('content', TextareaType::class)
+                    'format' => 'dd-MMMM-yyyy'
+                ],
+                [
+                    'constraints' => [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer une date'])
+                    ]
+                ]
+            )
+            ->add('content', TextareaType::class,
+                [
+                    'constraints' => [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer votre message']),
+                        new Assert\Length([
+                            'min' => 10,
+                            'minMessage' => 'Votre message doit avoir {{ limit }} caractères minimum',
+                            'max' => 50,
+                            'maxMessage' => 'Votre message doit avoir {{ limit }} caractères max'
+                        ]),
+                        new Assert\Regex([
+
+                            'pattern' => '/\b(hello|je)\b/',
+                            'match' => false,
+                            'message' => 'Merci de modérer vos propos',
+                        ])
+
+                    ]
+                ]
+            )
             ->getForm();
 
         // Je lie l'objet $request avec le formulaire.

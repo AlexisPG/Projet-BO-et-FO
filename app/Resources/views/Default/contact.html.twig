@@ -7,6 +7,14 @@
 
 {% block content %}
 
+    {# Permet de modifier juste sur une page #}
+    {% form_theme   formContact   _self %}
+
+    {%- block form_label -%}
+        <strong>Modification de l'affichage d'un label</strong>
+    {%- endblock form_label -%}
+    {# FIN DE Modification sur une page #}
+
     {# Affichage du message de success	#}
     {% for flash_message in app.session.flashBag.get('success') %}
         <div class="alert alert-success">{#Permet de mettre le message en vert, au niveau de la class#}

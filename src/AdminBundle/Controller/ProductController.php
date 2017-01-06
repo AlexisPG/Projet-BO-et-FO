@@ -2,17 +2,60 @@
 
 namespace AdminBundle\Controller;
 
+use AdminBundle\Entity\Product;
+use AdminBundle\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class ProductController extends Controller
 {
+    /**
+     * @Route("/products/creer", name="products_create")
+     */
+    public function createAction(Request $request)
+    {
+        $product = new Product();
+        /*Permet de mettre du contenu dans le champs title*/
+        /*$product->setTitle("hello");*/
+        /*dump($product);*/
+
+
+        // Création du formulaire ProductType permettant de créer un produit
+        // Je lie le formulaire à mon objet $product
+        $formProduct = $this->createForm(ProductType::class, $product);
+
+        //l'objet sera hydraté à partir d'ici
+        $formProduct->handleRequest($request);
+
+        if ($formProduct->isSubmitted() && $formProduct->isValid())
+        {
+            /*die(dump($product));*/
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+
+            //sauvegarde du produit
+            $this->addFlash('success', 'Votre produit a bien été ajouté');
+            return $this->redirectToRoute('products_create');
+        }
+        return $this->render('Product/create.html.twig',
+            [
+                'formProduct' =>$formProduct->createView()
+            ]);
+    }
+
+
     /**
      * @Route("/products", name="products")
      */
     public function productAction()
     {
-        $products = [
+            /*TABLEAU de product de test
+        $products =
+
+             * [
             [
                 "id" => 1,
                 "title" => "Mon premier produit",
@@ -41,13 +84,17 @@ class ProductController extends Controller
                 "date_created" => new \DateTime('now'),
                 "prix" => 410
             ],
-        ];
+        ];*/
+        // Affichage de tous les produits depuis la BDD via Entity/Product/Product.php
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository("AdminBundle:Product")->findAll();
+/*        die(dump($products));*/
 
         // Moyenne des prix
         $product_Sum = 0;
         foreach ($products as $p)
         {
-            $product_Sum = $product_Sum + $p["prix"];
+            $product_Sum = $product_Sum + $p->getPrice();
         }
 
 
@@ -58,14 +105,12 @@ class ProductController extends Controller
             ]);
     }
 
-
-
     /**
      * @Route("/products/{id}", name="show_product", requirements={"id" = "\d+"})
      */
     public function showAction($id)
     {
-        $products = [
+        /*$products = [
             [
                 "id" => 1,
                 "title" => "Mon premier produit",
@@ -94,10 +139,16 @@ class ProductController extends Controller
                 "date_created" => new \DateTime('now'),
                 "prix" => 410
             ],
-        ];
+        ];*/
+        // Affichage de tous les produits depuis la BDD via Entity/Product/Product.php
+
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository("AdminBundle:Product")->find($id);
+
+/*
         // Permet de faire le bon lien sur le bon ID en cliquant sur "voir"
         $leBonProduit = [];
-        foreach ($products as $p)
+        foreach ($product as $p)
         {
             if($id == $p['id'])
             {
@@ -105,17 +156,16 @@ class ProductController extends Controller
                 break;
             }
         }
+*/
         // permet de gérer le s"exceptions pour les futurs page 404
-        if (empty($leBonProduit)) {
+        if (empty($product)) {
             throw $this->createNotFoundException("Le produit n'existe pas");
         }
 
-        // TROUVER LE MOYEN D'ENVOYER UNIQUEMENT LE PRODUIT AYANT
         // LE BON ID ($id doit correspondre à un id existant dans $products)
         return $this->render('Product/show.html.twig',
             [
-                'products' => $products,
-                'leproduit' => $leBonProduit
+                'product' => $product
             ]);
     }
 }
