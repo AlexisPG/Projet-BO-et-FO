@@ -18,8 +18,11 @@ class DefaultController extends Controller
     /**
      * @Route("/")
      */
-    public function indexAction()
+    public function indexAction($id)
     {
+        $em = $this->getDoctrine()->getManager();
+        $tousLesProduits = $em->getRepository('AdminBundle:Product')->myFind($id);
+
         return $this->render('Default/index.html.twig');
     }
 
@@ -139,6 +142,7 @@ class DefaultController extends Controller
             ]);
     }
 
+
     /**
      * @Route("/feedback", name="feedback")
      */
@@ -170,7 +174,7 @@ class DefaultController extends Controller
                         new Assert\Choice([
                             'choices' => $choice,
                             'message' => 'Attention'
-                            ])
+                        ])
                     ]
                 ]
             )

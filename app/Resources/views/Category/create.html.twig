@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block titleContent %}
-    <h1>Créer un produit</h1>
+    <h1>Créer une catégorie</h1>
 {% endblock %}
 
 {% block content %}
@@ -11,12 +11,14 @@
             {{ flash_message }}
         </div>
     {% endfor %}
-    {{ form_start(formProduct) }}
+    {{ form_errors(formCategory) }}
 
-    {{ form_row(formProduct) }}
+    {{ form_start(formCategory) }}
+
+    {{ form_row(formCategory) }}
 
     <button>Ajouter</button>
 
-    {{ form_end(formProduct) }}
+    {{ form_end(formCategory) }}
 
 {% endblock content %}

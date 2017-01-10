@@ -1,4 +1,7 @@
 <aside class="main-sidebar">
+  {# Mettre en actif un lien de naviation #}
+  {#{{ dump(app.request.get('_route')) }} #}{# Permet de récupérer le nom de la route sur laquelle on se trouve#}
+
   <!-- sidebar: style can be found in sidebar.less -->
   <section class="sidebar">
     <!-- Sidebar user panel -->
@@ -33,23 +36,25 @@
             </span>
         </a>
         <ul class="treeview-menu active">
-          <li><a href="{{ asset("/app_dev.php/admin") }}"><i class="fa fa-circle-o"></i>Page d'accueil</a></li>
-          <li><a href="{{ asset("/app_dev.php/admin/products") }}"><i class="fa fa-circle-o"></i>Tous les produits</a></li>
-          <li><a href="{{ asset("/app_dev.php/admin/categories") }}"><i class="fa fa-circle-o"></i>Categories</a></li>
-          <li><a href="{{ asset("/app_dev.php/admin/feedback") }}"><i class="fa fa-circle-o"></i>Feedback</a></li>
-          <li><a href="{{ asset("/app_dev.php/admin/contact") }}"><i class="fa fa-circle-o"></i>Contact</a></li>
-          <li><a href="{{ asset("/app_dev.php/admin/products/creer") }}"><i class="fa fa-circle-o"></i>Création de produit</a></li>
+          <li class="{%  if app.request.get('_route') == 'admin_default_index' %} active {% endif %}"><a href="{{ asset("/app_dev.php/admin") }}"><i class="fa fa-circle-o"></i>Page d'accueil</a></li>
+          <li class="{%  if app.request.get('_route') == 'products' %} active {% endif %}"><a href="{{ asset("/app_dev.php/admin/products") }}"><i class="fa fa-circle-o"></i>Produits</a></li>
+          <li class="{%  if app.request.get('_route') == 'products_create' %} active {% endif %}"><a href="{{ asset("/app_dev.php/admin/products/creer") }}"><i class="fa fa-circle-o"></i>Création de produit</a></li>
+          <li class="{%  if app.request.get('_route') == 'categories' %} active {% endif %}"><a href="{{ asset("/app_dev.php/admin/categories") }}"><i class="fa fa-circle-o"></i>Categories</a></li>
+          <li class="{%  if app.request.get('_route') == 'categories_create' %} active {% endif %}"><a href="{{ asset("/app_dev.php/admin/categories/creer") }}"><i class="fa fa-circle-o"></i>Création de catégories</a></li>
+          <li class="{%  if app.request.get('_route') == 'feedback' %} active {% endif %}"><a href="{{ asset("/app_dev.php/admin/feedback") }}"><i class="fa fa-circle-o"></i>Feedback</a></li>
+          <li class="{%  if app.request.get('_route') == 'contact' %} active {% endif %}"><a href="{{ asset("/app_dev.php/admin/contact") }}"><i class="fa fa-circle-o"></i>Contact</a></li>
         </ul>
       </li>
       <li class="treeview">
         <a href="#">
           <i class="fa fa-files-o"></i>
-          <span>Layout Options</span>
+          <span>Listes des catégories</span>
           <span class="pull-right-container">
               <span class="label label-primary pull-right">4</span>
             </span>
         </a>
         <ul class="treeview-menu">
+          {{ render(controller("AdminBundle:Category:renderCategories")) }}
           <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
           <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
           <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>

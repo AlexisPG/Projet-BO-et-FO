@@ -82,7 +82,7 @@ class Product
      *
      * @param string $title
      *
-     * @return Product
+     * @return symfony
      */
     public function setTitle($title)
     {
@@ -106,7 +106,7 @@ class Product
      *
      * @param string $description
      *
-     * @return Product
+     * @return symfony
      */
     public function setDescription($description)
     {
@@ -130,7 +130,7 @@ class Product
      *
      * @param float $price
      *
-     * @return Product
+     * @return symfony
      */
     public function setPrice($price)
     {
@@ -154,7 +154,7 @@ class Product
      *
      * @param integer $quantity
      *
-     * @return Product
+     * @return symfony
      */
     public function setQuantity($quantity)
     {
@@ -174,28 +174,4 @@ class Product
     }
 
     
-
-    /**
-     * Set marque
-     *
-     * @param \AdminBundle\Entity\Brand $marque
-     *
-     * @return Product
-     */
-    public function setMarque(Brand $marque)
-    {
-        $this->marque = $marque;
-
-        return $this;
-    }
-
-    /**
-     * Get marque
-     *
-     * @return \AdminBundle\Entity\Brand
-     */
-    public function getMarque()
-    {
-        return $this->marque;
-    }
 }

@@ -5,6 +5,12 @@
 {% endblock %}
 
 {% block content %}
+    {# Affichage du message de success	#}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">{#Permet de mettre le message en vert, au niveau de la class#}
+            {{ flash_message }}
+        </div>
+    {% endfor %}
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Description du produit : {{ product.title }} </h3>
@@ -26,14 +32,17 @@
                     <td>Titre</td>
                     <td>{{ product.title|default('Produit sans nom') }}</td>
                 </tr>
-
+                <tr>
+                    <td>Marque</td>
+                    <td>{{ product.marque.title }}</td>
+                </tr>
                 <tr>
                     <td>Description</td>
                     <td>{{ product.description }}</td>
                 </tr>
                 <tr>
                     <td>Prix</td>
-                    <td>{{ product.price }}</td>
+                    <td>{{ product.price }} €</td>
                 </tr>
                 </tbody>
                 <tfoot>
@@ -41,8 +50,8 @@
 
             </table>
 
-            <a href="{{ path("show_product", { id:product.id }) }}" class="btn btn-primary">Modifier</a>
-            <a href="#" class="btn btn-danger">Supprimer</a>
-        </div> 
+            <a href="{{ path("edit", { id:product.id }) }}" class="btn btn-primary">Modifier</a>
+            <a href="{{ path("product_remove", { id:product.id }) }}" class="btn btn-danger">Supprimer</a>
+        </div>
     </div>
 {% endblock %}

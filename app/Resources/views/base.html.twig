@@ -77,6 +77,43 @@
                     $(".datepicker").datepicker({format : 'dd-mm-yyyy'});
                 });
     </script>
+    <script>
+        /* Permet d'afficher la pop up etes vous sur de supprimer ? en prennat en compte l'élément parent d'un élemtn cré ou mùeme créé dynamiquement en AJX*/
+        $(document).ready(function()
+        {
+            var table = $('.table');
+            table.on("click", '.btn-danger', function(event)
+            {
+                //console.log($(this))
+                event.preventDefault();
+                var elementA = $(this);
+                var elementParentTable = elementA.closest('.table');
+                var linkUrl = elementA.attr("href");
+                if (confirm("Etes-vous sûr de vouloir supprimer ce produit ?"))
+                {
+                    // Requete Ajax
+                    // http://api.jquery.com/jquery.ajax/
+                    $.ajax({
+                        url: linkUrl,
+                        method: "GET"
+                    }).done(function(data){
+                        elementA.closest('tr').fadeOut(700, function(){
+                            $(this).remove();
+
+                            // Suppression des éventuels messages existants
+                            $('.alert-success').remove();
+
+                            // Ajout du message
+                            var message = $('<p class="alert alert-success">').append(data.message);
+                            elementParentTable.before(message);
+                            message.delay(2000).fadeOut()
+                        })
+                    });
+                }
+            })
+        });
+    </script>
+
 
 
 {%  endblock javascript %}

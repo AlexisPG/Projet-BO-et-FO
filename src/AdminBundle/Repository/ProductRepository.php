@@ -10,4 +10,84 @@ namespace AdminBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function myFindAll()
+    {
+        // Creation d'une requête DQL
+        // findAll() maison
+        $query = $this->getEntityManager()
+            ->createQuery('
+            SELECT prod
+            FROM AdminBundle:Product prod
+            ');
+        die(dump($query->getResult()));
+
+
+        // Création d'une requête grâce au builder
+        // findAll() maison
+        /*$query = $this->getEntityManager()->createQueryBuilder()
+            ->select("prod")
+            ->from("AdminBundle:Product", "prod")
+            ->getQuery();
+
+        die(dump($query->getResult()));*/
+
+    }
+
+    public function myFind($id) {
+
+        // Creation d'une requête DQL
+        // find() maison
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT prod
+                          FROM AdminBundle:Product prod
+                          WHERE prod.id = :identifiant
+                    ')
+        /* Intégrer un ou plusieurs paramètres */
+                    ->setParameters([
+                         'identifiant' => $id,
+                     /*'autre_variable' => $autre*/
+                    ]);
+
+        die(dump($query->getResult()));
+
+        //die(dump($query->getResult()));
+
+        // Création d'une requête grâce au builder
+        // findAll() maison
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select("prod")
+            ->from("AdminBundle:Product", "prod")
+            ->getQuery();
+
+        //die(dump($query->getResult()));
+
+        return $query->getResult();
+    }
+
+    public function myFindqQuantityInf5()
+    {
+        // Creation d'une requête DQL
+        // findAll() maison
+        $query = $this->getEntityManager()
+            ->createQuery('
+            SELECT prod
+            FROM AdminBundle:Product prod
+            WHERE prod.quantity > 5
+            ');
+        die(dump($query->getResult()));
+    }
+
+    public function myFindqCountQuantity0()
+    {
+        // Creation d'une requête DQL
+        // findAll() maison
+        $query = $this->getEntityManager()
+            ->createQuery('
+            SELECT COUNT(prod)
+            FROM AdminBundle:Product prod
+            WHERE prod.quantity = 0
+            ');
+        die(dump($query->getResult()));
+    }
 }

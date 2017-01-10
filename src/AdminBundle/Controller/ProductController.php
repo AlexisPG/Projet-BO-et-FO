@@ -6,6 +6,7 @@ use AdminBundle\Entity\Product;
 use AdminBundle\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -87,7 +88,11 @@ class ProductController extends Controller
         ];*/
         // Affichage de tous les produits depuis la BDD via Entity/Product/Product.php
         $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository("AdminBundle:Product")->findAll();
+        /*$products = $em->getRepository('AdminBundle:Product')->myFindqQuantityInf5();*/
+        $products = $em->getRepository('AdminBundle:Product')->myFindqCountQuantity0();
+
+       /* $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository("AdminBundle:Product")->findAll();*/
 /*        die(dump($products));*/
 
         // Moyenne des prix
@@ -167,5 +172,61 @@ class ProductController extends Controller
             [
                 'product' => $product
             ]);
+    }
+
+    /**
+     * @Route("/products/edit/{id}", name="edit", requirements={"id" = "\d+"})
+     */
+    public function editAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('AdminBundle:Product')->find($id);
+
+        // Création du formulaire ProductType permettant de créer un produit
+        // Je lie le formulaire à mon objet $product
+        $formProduct = $this->createForm(ProductType::class, $product);
+
+        // Je lie la requête ($_POST) à mon formulaire donc à mon objet $product
+        $formProduct->handleRequest($request);
+
+        // Je valide mon formulaire
+        if ($formProduct->isSubmitted() && $formProduct->isValid()) {
+
+            // La ligne ci-dessous n'est pas obligatoire car doctrine est au courant de l'existance de $product
+            // $em->persist($product);
+            $em->flush();
+
+            $this->addFlash('success', 'Votre produit a été mis à jour');
+
+            return $this->redirectToRoute('show_product', ['id' => $id]);
+        }
+
+        return $this->render('Product/edit.html.twig', ['formProduct' => $formProduct->createView()]);
+    }
+
+    /**
+     * @Route("/products/supprimer/{id}", name="product_remove")
+     */
+    public function removeAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('AdminBundle:Product')->find($id);
+
+        // Vérification si le produit est bien en BDD
+        if (!$product) {
+            throw $this->createNotFoundException("Le produit n'existe pas");
+        }
+
+        $em->remove($product);
+        $em->flush();
+        $messageSuccess = 'Votre produit a été supprimé';
+        if ($request->isXmlHttpRequest())
+        {
+            return new JsonResponse(['message' => $messageSuccess]);
+        }
+
+        $this->addFlash('success', $messageSuccess);
+        // Redirection sur la page qui liste tous les produits
+        return $this->redirectToRoute('products');
     }
 }

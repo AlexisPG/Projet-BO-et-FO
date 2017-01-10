@@ -1,9 +1,5 @@
 {% extends 'layout.html.twig' %}
 
-{% block titleContent %}
-    <h1>Créer un produit</h1>
-{% endblock %}
-
 {% block content %}
     {# Affichage du message de success	#}
     {% for flash_message in app.session.flashBag.get('success') %}
@@ -15,7 +11,7 @@
 
     {{ form_row(formProduct) }}
 
-    <button>Ajouter</button>
+    <button>Mettre à jour</button>
 
     {{ form_end(formProduct) }}
 
