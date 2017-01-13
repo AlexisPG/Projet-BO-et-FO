@@ -18,10 +18,20 @@ class DefaultController extends Controller
     /**
      * @Route("/")
      */
-    public function indexAction($id)
+    public function indexAction()
     {
+/*      $em = $this->getDoctrine()->getManager();
+        $tousLesProduits = $em->getRepository('AdminBundle:Product')->myFind($id);*/ // a ce moment, il y a un $id qui devra etre dans indexAction($id)
+
+        // Lien avec BDD
+        // Affichage de tous les produits depuis la BDD via Entity/Product/Product.php
         $em = $this->getDoctrine()->getManager();
-        $tousLesProduits = $em->getRepository('AdminBundle:Product')->myFind($id);
+        /*$em->getRepository('AdminBundle:Product')->myFindQuantityInf5();*/
+        /*$em->getRepository('AdminBundle:Product')->myFindCountQuantity0();*/
+        $doctrine = $this->getDoctrine();
+        $rc = $doctrine->getRepository('AdminBundle:Product');
+        /*$results = $rc->findProduct();*/
+        $results = $rc->findProduct2();
 
         return $this->render('Default/index.html.twig');
     }

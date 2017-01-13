@@ -18,11 +18,11 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 
          }
 
-         for($i = 0; $i < 5; $i++)
+         for($i = 0; $i < 50; $i++)
          {
              $product = new Product();
              $product->setTitle('un nouveau titre')
-                 ->setDescription('lorem ipsum')
+                 ->setDescription('Nouveau produit super top')
                  ->setPrice(rand(1,1000))
                  ->setQuantity(rand(1,100))
                  ->setMarque($this->getReference('nouvelle-marque-'.$i));

@@ -49,6 +49,12 @@ class Category
      */
     private $active;
 
+    /**
+     * Many Products have Many Categories
+     * @ORM\ManyToMany(targetEntity="Product", mappedBy="Categories")
+     */
+    private $products;
+
 
     /**
      * Get id
@@ -171,4 +177,45 @@ class Category
         }
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add product
+     *
+     * @param \AdminBundle\Entity\Products $product
+     *
+     * @return Category
+     */
+    public function addProduct(\AdminBundle\Entity\Products $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \AdminBundle\Entity\Products $product
+     */
+    public function removeProduct(\AdminBundle\Entity\Products $product)
+    {
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
 }

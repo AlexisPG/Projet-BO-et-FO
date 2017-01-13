@@ -195,7 +195,10 @@ class CategoryController extends Controller
         $categories = $em->getRepository('AdminBundle:Category')->findAll();
 /*       die(dump($categories));*/
 
-        return $this->render('Category/renderCategories.html.twig', ['categories' => $categories]);
+        return $this->render('Category/renderCategories.html.twig',
+            [
+                'categories' => $categories
+            ]);
     }
 
 

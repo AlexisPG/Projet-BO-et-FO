@@ -54,7 +54,9 @@
             </span>
         </a>
         <ul class="treeview-menu">
-          {{ render(controller("AdminBundle:Category:renderCategories")) }}
+          {{ ma_fonction()|raw }}
+{#          {{ render(controller("AdminBundle:Category:renderCategories")) }}#}
+
           <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
           <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
           <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>

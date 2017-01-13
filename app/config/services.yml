@@ -7,3 +7,27 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    admin.twig.extension:
+        class: AdminBundle\Twig\AppExtension
+        arguments: [ '@doctrine', '@twig' ]
+        tags:
+            - { name: twig.extension }
+
+    admin.service.utils.strings:
+        class: AdminBundle\Service\Utils\StringService
+
+    admin.service.upload:
+        class: AdminBundle\Service\UploadService
+        arguments: [ '@admin.service.utils.strings', '%upload_dir%' ]
+
+    admin.service.unlink:
+        class: AdminBundle\Service\UnlinkService
+        arguments: [ '%upload_dir%' ]
+
+    admin.listener.product:
+        class: AdminBundle\Listener\ProductListener
+        arguments: [ '@admin.service.upload', '%upload_dir_default_img%', '@admin.service.unlink' ]
+        tags:
+            - { name: doctrine.orm.entity_listener }
+

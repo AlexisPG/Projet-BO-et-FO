@@ -10,6 +10,45 @@ namespace AdminBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function findProduct()
+    {
+        $results = $this
+            ->createQueryBuilder('product')
+            ->select('product.description, product.price, brand.title') // le product se réfère à l'alias de du createQueryBuilder, On peut mettre tous les champs, séparé par une virgule
+/*            ->setMaxResults(6) // Nbre de résultat max
+            ->setFirstResult(2) // A partir d'où on commence*/
+            ->join('product.marque', 'brand')
+            ->where('product.description = :desc')
+            ->andWhere('product.price > :price')
+            ->andWhere('brand.title LIKE :brand')
+            ->orderBy('product.price', 'DESC')
+            ->setParameters([
+                'desc' => 'lorem ipsum',
+                'price' => 8,
+                'brand' => '%titre%'
+            ])
+            ->getQuery()
+            ->getResult()
+            ;
+        return $results;
+    }
+
+    public function findProduct2()
+    {
+        $results = $this
+            ->createQueryBuilder('product')
+            ->select('COUNT(product.id) result')
+            ->join('product.marque', 'brand')
+            ->groupBy('brand.title')
+            ->getQuery()
+            ->getScalarResult()
+        ;
+
+        return $results;
+    }
+
+
     public function myFindAll()
     {
         // Creation d'une requête DQL
@@ -19,7 +58,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             SELECT prod
             FROM AdminBundle:Product prod
             ');
-        die(dump($query->getResult()));
+        $query->getResult();
 
 
         // Création d'une requête grâce au builder
@@ -40,7 +79,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         $query = $this->getEntityManager()
             ->createQuery('
                     	  SELECT prod
-                          FROM AdminBundle:Product prod
+                          FROM AdminBundle:Product AS prod
                           WHERE prod.id = :identifiant
                     ')
         /* Intégrer un ou plusieurs paramètres */
@@ -49,7 +88,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
                      /*'autre_variable' => $autre*/
                     ]);
 
-        die(dump($query->getResult()));
+        $query->getResult();
 
         //die(dump($query->getResult()));
 
@@ -65,7 +104,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
-    public function myFindqQuantityInf5()
+    public function myFindQuantityInf5()
     {
         // Creation d'une requête DQL
         // findAll() maison
@@ -75,10 +114,10 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             FROM AdminBundle:Product prod
             WHERE prod.quantity > 5
             ');
-        die(dump($query->getResult()));
+        $query->getResult();
     }
 
-    public function myFindqCountQuantity0()
+    public function myFindCountQuantity0()
     {
         // Creation d'une requête DQL
         // findAll() maison
@@ -88,6 +127,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             FROM AdminBundle:Product prod
             WHERE prod.quantity = 0
             ');
-        die(dump($query->getResult()));
+        $query->getResult();
     }
+
 }

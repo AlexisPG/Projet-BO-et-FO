@@ -10,4 +10,16 @@ namespace AdminBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function myFindqNumberCategory()
+    {
+        // Creation d'une requête DQL
+        // findAll() maison
+        $query = $this->getEntityManager()
+            ->createQuery('
+            SELECT COUNT(cat)
+            FROM AdminBundle:Category cat
+            ');
+        die(dump($query->getResult()));
+    }
+
 }

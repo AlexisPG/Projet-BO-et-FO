@@ -11,12 +11,47 @@
             {{ flash_message }}
         </div>
     {% endfor %}
-    {{ form_start(formProduct) }}
 
-    {{ form_row(formProduct) }}
+    {{ form_start(formProduct,  {
+        attr: {'novalidate':'novalidate'}
+    })
+    }}
+
+    <div class="form-group">
+        {{ form_label(formProduct.marque,
+        "Marque"
+        ) }}
+        {{ form_widget(formProduct.marque,
+        {
+            attr: {
+            class: "form-control"
+        }
+        }
+        )
+        }}
+    </div>
+    <div class="form-group">
+        {{ form_label(formProduct.marque,
+        "Categories"
+        ) }}
+        {{ form_widget(formProduct.categories,
+        {
+            attr: {
+            class: "form-control"
+        }
+        }
+        )
+        }}
+    </div>
+
+    <input id="adminbundle_product_image" name="adminbundle_product[image]" required="required" type="file">
+
+
+
 
     <button>Ajouter</button>
 
     {{ form_end(formProduct) }}
+
 
 {% endblock content %}

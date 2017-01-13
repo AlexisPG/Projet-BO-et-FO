@@ -3,6 +3,7 @@
 {% block titleContent %}
     Tous les produits
     <small>Control panel</small>
+    {{ ma_fonction()|raw }}
 {% endblock %}
 
 {% block stylesheet %}
@@ -45,6 +46,8 @@
                     <th>Marque</th>
                     {#<th>Date</th>#}
                     <th>Prix</th>
+                    <th>Catégorie</th>
+                    <th>Image</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -58,6 +61,12 @@
                         <td>{{ product.description }}</td>
                         <td>{{ product.marque.title }}</td>
                         <td>{{ product.price }} €</td>
+                        <td>
+                            {% for category in product.categories %}
+                                {{ category.title }},
+                            {% endfor %}
+                        </td>
+                        <td><img style="max-width:70px;" src="{{ asset('upload/' ~ product.image) }}"></td></td>
                         <td><a href="{{ path("show_product", { id:product.id }) }}" class="btn btn-success">Voir</a></td>
                         <td><a href="{{ path("edit", { id:product.id }) }}" class="btn btn-primary">Modifier</a></td>
                         <td><a href="{{ path("product_remove", { id:product.id }) }}" class="btn btn-danger">Supprimer</a></td>
@@ -77,7 +86,7 @@
                         <td><a href="#" class="btn btn-danger">Supprimer</a></td>
                     </tr>
                 {% endfor %}#}
-                </tr>
+
                 </tbody>
                 <tfoot>
                 <tr>
@@ -85,6 +94,7 @@
                     <th>TITRE</th>
                     <th>Description</th>
                     {#<th>Date</th>#}
+                    <th></th>
 
                     <th>
                         {% if products|length > 0 %}

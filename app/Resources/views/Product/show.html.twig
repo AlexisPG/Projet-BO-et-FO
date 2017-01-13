@@ -44,6 +44,33 @@
                     <td>Prix</td>
                     <td>{{ product.price }} €</td>
                 </tr>
+                <tr>
+                    <td>Image</td>
+                    <td><img src="{{ asset('upload/' ~ product.image) }}"></td>
+                </tr>
+                <tr>
+                    <td>Date de création</td>
+                    <td>{{ product.dateCreation|date("m/d/Y H:i:s") }}</td>
+                </tr>
+                <tr>
+                    <td>Date de modification</td>
+                    <td>{% if product.dateEdit|date("m/d/Y H:i:s") == product.dateCreation|date("m/d/Y H:i:s") %}
+                            Produit créé<br>
+                        {% else %}{{ product.dateEdit|date("m/d/Y H:i:s") }}
+                        {% endif %}
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Catégorie</td>
+                    <td>{% if product.categories|length > 0 %}
+                            {% for category in product.categories %}
+                                {{ category.title }}<br>
+                            {% endfor %}
+                            {% else %}Pas de catégorie
+                        {% endif %}
+                    </td>
+                </tr>
                 </tbody>
                 <tfoot>
                 </tfoot>

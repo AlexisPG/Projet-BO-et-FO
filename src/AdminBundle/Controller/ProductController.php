@@ -32,9 +32,31 @@ class ProductController extends Controller
 
         if ($formProduct->isSubmitted() && $formProduct->isValid())
         {
-            /*die(dump($product));*/
+            //Sauvegarde du produit
             $em = $this->getDoctrine()->getManager();
+
+            /*// Récupération de l'image
+            $image = $product->getImage();*/
+
+/*            // service utils
+            $serviceUtils = $this->get('admin.service.utils.strings');
+            $filename = $serviceUtils->generateUniqId() . '-'. $product->getTitle() . '.' .$image->guessExtension();
+
+            // Transfert d'image
+            $image->move('upload/', $filename);*/
+
+            /*// Nom unique dans la BDD
+            $uploadService = $this->get('admin.service.upload');
+            $name = $uploadService->upload($image);
+
+            // insertion du nom du fichier image généré dans notre objet produit
+            $product->setImage($name);*/
+
+            //$product = $this->UploadService();
+            // Pour préarer la requête
             $em->persist($product);
+
+            // Pour envoyer la requête
             $em->flush();
 
             //sauvegarde du produit
@@ -86,13 +108,9 @@ class ProductController extends Controller
                 "prix" => 410
             ],
         ];*/
-        // Affichage de tous les produits depuis la BDD via Entity/Product/Product.php
-        $em = $this->getDoctrine()->getManager();
-        /*$products = $em->getRepository('AdminBundle:Product')->myFindqQuantityInf5();*/
-        $products = $em->getRepository('AdminBundle:Product')->myFindqCountQuantity0();
 
-       /* $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository("AdminBundle:Product")->findAll();*/
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository("AdminBundle:Product")->findAll();
 /*        die(dump($products));*/
 
         // Moyenne des prix
@@ -101,7 +119,6 @@ class ProductController extends Controller
         {
             $product_Sum = $product_Sum + $p->getPrice();
         }
-
 
         return $this->render('Product/tousLesProduits.html.twig',
             [
@@ -201,7 +218,10 @@ class ProductController extends Controller
             return $this->redirectToRoute('show_product', ['id' => $id]);
         }
 
-        return $this->render('Product/edit.html.twig', ['formProduct' => $formProduct->createView()]);
+        return $this->render('Product/edit.html.twig',
+            [
+                'formProduct' => $formProduct->createView()
+            ]);
     }
 
     /**
