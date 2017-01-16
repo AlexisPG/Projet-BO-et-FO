@@ -1,0 +1,74 @@
+{% extends "public.layout.html.twig" %}
+
+
+{% block title %} {%  endblock %}
+
+{% block stylesheets %}
+    <!-- Custom CSS -->
+    <link href="{{ asset('public/css/shop-homepage.css') }}" rel="stylesheet">
+{%  endblock %}
+
+
+
+{% block body %}
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                {% block nav %}
+                    <!-- SIDEBAR -->
+                    {% include 'Public/Partials-public/sidebar.html.twig' %}
+                {% endblock nav %}
+            </div>
+
+            <div class="col-md-9">
+                {% block slider %}
+                    <!-- SLIDER -->
+                    {% include 'Public/Partials-public/slider.html.twig' %}
+                {% endblock slider %}
+                <div class="row">
+                    {% for product in products %}
+                        <div class="col-sm-4 col-lg-4 col-md-4">
+                            <div class="thumbnail">
+                                <img style="width:auto; margin: auto; height: 120px;" src="{{ asset('upload/' ~ product.image) }}" alt="{{ asset(product.title) }}">
+                                <div class="caption">
+                                    <h4 class="pull-right">{{ product.price }} €</h4>
+                                    <h4><a href="#">{{ product.title }}</a>
+                                    </h4>
+                                    <p>{{ product.description }} <a target="_blank" href="#">Lien ></a></p>
+                                </div>
+                                <div class="ratings">
+                                    <p class="pull-right">15 reviews</p>
+                                    <p>
+                                        <span class="glyphicon glyphicon-star"></span>
+                                        <span class="glyphicon glyphicon-star"></span>
+                                        <span class="glyphicon glyphicon-star"></span>
+                                        <span class="glyphicon glyphicon-star"></span>
+                                        <span class="glyphicon glyphicon-star"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <h4><a href="#">Like this template?</a>
+                        </h4>
+                        <p>If you like this template, then check out <a target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this tutorial</a> on how to build a working review system for your online store!</p>
+                        <a class="btn btn-primary" target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">View Tutorial</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+{%  endblock  %}
+
+
+{% block javascript %} {%  endblock %}

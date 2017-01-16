@@ -130,4 +130,30 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         $query->getResult();
     }
 
+    public function findLastSixProducts()
+    {
+        $query = $this
+            ->createQueryBuilder('product') // select * from product
+            ->orderBy('product.price', 'DESC')
+            ->setMaxResults(6)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        //die(dump($query->getResult()));
+        return $query;
+    }
+
+    public function findTreeSliders()
+    {
+        $query = $this
+            ->createQueryBuilder('product') // select * from product
+            ->orderBy('product.quantity', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+        ;
+
+        return $query->getResult();
+    }
+
 }

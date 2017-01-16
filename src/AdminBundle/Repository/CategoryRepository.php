@@ -22,4 +22,15 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
         die(dump($query->getResult()));
     }
 
+    public function displayCategories()
+    {
+        $query = $this
+            ->createQueryBuilder('category') // select * from product
+            ->orderBy('category.title', 'DESC')
+            ->getQuery()
+        ;
+
+        return $query->getResult();
+    }
+
 }

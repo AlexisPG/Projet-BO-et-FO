@@ -16,15 +16,28 @@ class ProductController extends Controller
 {
 
     /**
-     * @Route("/products", name="app_products")
+     * @Route("/produit/{id}", name="voir_produit", requirements={"id" = "\d+"})
      */
 
-    public function ProductsActions()
+    public function ProductsActions($id)
     {
-        $hello = "hello";
-        return $this->render('Public/Products/index.html.twig',
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository("AdminBundle:Product")->find($id);
+
+        // permet de gérer le s"exceptions pour les futurs page 404
+        if (empty($product)) {
+            throw $this->createNotFoundException("Le produit n'existe pas");
+        }
+
+        // LE BON ID ($id doit correspondre à un id existant dans $products)
+        return $this->render('Public/Products/show.html.twig',
             [
-                'hello' => $hello
+                'product' => $product
             ]);
+    }
+
+    public function findAllProductFromCategorie()
+    {
+        // TODO : terminer la requete des produits de la catégorie
     }
 }

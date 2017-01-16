@@ -1,0 +1,3 @@
+{% for cat in categories %}
+    <a href="{{ path("voir_categorie", { id:cat.id }) }}" class="list-group-item"> {{ cat.title }}</a>
+{% endfor %}
