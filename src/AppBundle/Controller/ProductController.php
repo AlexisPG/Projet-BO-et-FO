@@ -36,8 +36,4 @@ class ProductController extends Controller
             ]);
     }
 
-    public function findAllProductFromCategorie()
-    {
-        // TODO : terminer la requete des produits de la catégorie
-    }
 }

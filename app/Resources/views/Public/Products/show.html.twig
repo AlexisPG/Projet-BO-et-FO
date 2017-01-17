@@ -2,7 +2,7 @@
 
 {% block stylesheets %}
     <!-- Custom CSS -->
-    <link href="{{ asset('public/css/shop-homepage.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/css/shop-item.css') }}" rel="stylesheet">
 {%  endblock %}
 
 {% block titleContent %}
@@ -20,12 +20,12 @@
     <div class="col-md-9">
 
         <div class="thumbnail">
-            <img class="img-responsive" src="http://placehold.it/800x300" alt="">
+            <img style="width:auto; margin: auto; height: 300px;" class="img-responsive" src="{{ asset('upload/' ~ product.image) }}" alt="">
             <div class="caption-full">
                 <h4 class="pull-right">$24.99</h4>
-                <h4><a href="#">Product Name</a>
+                <h4><a href="#">{{ product.title }}</a>
                 </h4>
-                <p>See more snippets like these online store reviews at <a target="_blank" href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
+                <p>Categories : </a>.</p>
                 <p>Want to make these reviews work? Check out
                     <strong><a href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this building a review system tutorial</a>
                     </strong>over at maxoffsky.com!</p>

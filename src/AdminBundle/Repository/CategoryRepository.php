@@ -19,7 +19,7 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
             SELECT COUNT(cat)
             FROM AdminBundle:Category cat
             ');
-        die(dump($query->getResult()));
+        $query->getResult();
     }
 
     public function displayCategories()
@@ -29,7 +29,6 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('category.title', 'DESC')
             ->getQuery()
         ;
-
         return $query->getResult();
     }
 

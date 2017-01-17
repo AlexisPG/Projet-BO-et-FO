@@ -93,6 +93,13 @@ class Product
     private $image;
 
     /**
+     * One Products have Many Comments
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="product")
+     */
+    private $comments;
+
+
+    /**
      * Get id
      *
      * @return int
@@ -197,8 +204,6 @@ class Product
     {
         return $this->quantity;
     }
-
-    
 
     /**
      * Set marque
@@ -339,5 +344,39 @@ class Product
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \AdminBundle\Entity\Comment $comment
+     *
+     * @return Product
+     */
+    public function addComment(\AdminBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AdminBundle\Entity\Comment $comment
+     */
+    public function removeComment(\AdminBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

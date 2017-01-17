@@ -72,7 +72,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
-    public function myFind($id) {
+    public function myfindMyId($id) {
 
         // Creation d'une requête DQL
         // find() maison
@@ -156,4 +156,36 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
+    public function findAllProductFromCategory($idCat, $offset)
+    {
+        $query = $this
+            ->createQueryBuilder('p')
+            ->join('p.categories', 'c')
+            ->where('c.id = :idcat')
+            ->setFirstResult($offset)
+            ->setMaxResults(4)
+            ->setParameters([
+                'idcat' => $idCat
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+        return $query;
+    }
+
+    public function countProductByCategory($id)
+    {
+        $results = $this
+            ->createQueryBuilder('product')
+            ->select('COUNT(product.id) result')
+            ->join('product.categories', 'c')
+            ->where('c.id = :id')
+            ->setParameters([
+                'id' => $id
+            ])
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+        return $results;
+    }
 }

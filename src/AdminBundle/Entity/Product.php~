@@ -93,6 +93,13 @@ class Product
     private $image;
 
     /**
+     * One Products have Many Comments
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="product")
+     */
+    private $comments;
+
+
+    /**
      * Get id
      *
      * @return int
@@ -197,8 +204,6 @@ class Product
     {
         return $this->quantity;
     }
-
-    
 
     /**
      * Set marque
@@ -315,5 +320,29 @@ class Product
     public function getDateEdit()
     {
         return $this->dateEdit;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Product
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }
