@@ -36,13 +36,16 @@
             </span>
         </a>
         <ul class="treeview-menu active">
-          <li class="{%  if app.request.get('_route') == 'admin_default_index' %} active {% endif %}"><a href="{{ asset("/app_dev.php/admin") }}"><i class="fa fa-circle-o"></i>Page d'accueil</a></li>
-          <li class="{%  if app.request.get('_route') == 'products' %} active {% endif %}"><a href="{{ asset("/app_dev.php/admin/products") }}"><i class="fa fa-circle-o"></i>Produits</a></li>
-          <li class="{%  if app.request.get('_route') == 'products_create' %} active {% endif %}"><a href="{{ asset("/app_dev.php/admin/products/creer") }}"><i class="fa fa-circle-o"></i>Création de produit</a></li>
-          <li class="{%  if app.request.get('_route') == 'categories' %} active {% endif %}"><a href="{{ asset("/app_dev.php/admin/categories") }}"><i class="fa fa-circle-o"></i>Categories</a></li>
-          <li class="{%  if app.request.get('_route') == 'categories_create' %} active {% endif %}"><a href="{{ asset("/app_dev.php/admin/categories/creer") }}"><i class="fa fa-circle-o"></i>Création de catégories</a></li>
-          <li class="{%  if app.request.get('_route') == 'feedback' %} active {% endif %}"><a href="{{ asset("/app_dev.php/admin/feedback") }}"><i class="fa fa-circle-o"></i>Feedback</a></li>
-          <li class="{%  if app.request.get('_route') == 'contact' %} active {% endif %}"><a href="{{ asset("/app_dev.php/admin/contact") }}"><i class="fa fa-circle-o"></i>Contact</a></li>
+          <li class="{%  if app.request.get('_route') == 'admin_default_index' %} active {% endif %}"><a href="{{ path("public_homepage") }}"><i class="fa fa-circle-o"></i>
+              Page d'accueil</a></li>
+          <li class="{%  if app.request.get('_route') == 'products' %} active {% endif %}"><a href="{{ path("products") }}"><i class="fa fa-circle-o"></i>
+              Produits</a></li>
+          <li class="{%  if app.request.get('_route') == 'products_create' %} active {% endif %}"><a href="{{ path("products_create") }}"><i class="fa fa-circle-o"></i>
+              Création de produit</a></li>
+          <li class="{%  if app.request.get('_route') == 'categories' %} active {% endif %}"><a href="{{ path("categories") }}"><i class="fa fa-circle-o"></i>Categories</a></li>
+          <li class="{%  if app.request.get('_route') == 'categories_create' %} active {% endif %}"><a href="{{ path("categories_create") }}"><i class="fa fa-circle-o"></i>Création de catégories</a></li>
+          <li class="{%  if app.request.get('_route') == 'feedback' %} active {% endif %}"><a href="{{ path("feedback") }}"><i class="fa fa-circle-o"></i>Feedback</a></li>
+          <li class="{%  if app.request.get('_route') == 'contact' %} active {% endif %}"><a href="{{ path("contact") }}"><i class="fa fa-circle-o"></i>Contact</a></li>
         </ul>
       </li>
       <li class="treeview">

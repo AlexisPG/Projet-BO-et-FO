@@ -32,12 +32,12 @@
                     {% for product in products %}
                         <div class="col-sm-4 col-lg-4 col-md-4">
                             <div class="thumbnail">
-                                <img style="width:auto; margin: auto; height: 120px;" src="{{ asset('upload/' ~ product.image) }}" alt="{{ asset(product.title) }}">
+                                <img style="width:auto; margin: auto; height: 120px;" src="{{ asset('upload/' ~ product.image) }}" alt="{{ asset(product.titleFR) }}">
                                 <div class="caption">
                                     <h4 class="pull-right">{{ product.price }} €</h4>
-                                    <h4><a href="#">{{ product.title }}</a>
+                                    <h4><a href="#">{{ product.titleFR }}</a>
                                     </h4>
-                                    <p>{{ product.description }} <a target="_blank" href="#">Lien ></a></p>
+                                    <p>{{ product.descriptionFR }} <a target="_blank" href="#">Lien ></a></p>
                                 </div>
                                 <div class="ratings">
                                     <p class="pull-right">15 reviews</p>

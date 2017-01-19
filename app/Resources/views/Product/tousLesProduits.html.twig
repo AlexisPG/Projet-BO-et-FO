@@ -41,8 +41,10 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Titre</th>
-                    <th>Description</th>
+                    <th>Titre FR </th>
+                    <th>Description FR</th>
+                    <th>Title EN</th>
+                    <th>Description EN</th>
                     <th>Marque</th>
                     {#<th>Date</th>#}
                     <th>Prix</th>
@@ -57,8 +59,10 @@
                 {% for product in products %}
                     <tr>
                         <td>{{ product.id }}</td>
-                        <td>{{ product.title|default('Produit sans nom') }}</td>
-                        <td>{{ product.description }}</td>
+                        <td>{{ product.titleFR|default('Produit sans nom') }}</td>
+                        <td>{{ product.descriptionFR }}</td>
+                        <td>{{ product.titleEN|default('Produit sans nom') }}</td>
+                        <td>{{ product.descriptionEN }}</td>
                         <td>{{ product.marque.title }}</td>
                         <td>{{ product.price }} €</td>
                         <td>
@@ -66,7 +70,7 @@
                                 {{ category.title }},
                             {% endfor %}
                         </td>
-                        <td><img style="width:70px;" src="{{ asset('upload/' ~ product.image) }}"></td></td>
+                        <td><img style="width:70px;" src="{{ asset('upload/' ~ product.image) }}"></td>
                         <td><a href="{{ path("show_product", { id:product.id }) }}" class="btn btn-success">Voir</a></td>
                         <td><a href="{{ path("edit", { id:product.id }) }}" class="btn btn-primary">Modifier</a></td>
                         <td><a href="{{ path("product_remove", { id:product.id }) }}" class="btn btn-danger">Supprimer</a></td>
@@ -93,6 +97,8 @@
                     <th>ID</th>
                     <th>TITRE</th>
                     <th>Description</th>
+                    <th>Title EN</th>
+                    <th>Description EN</th>
                     {#<th>Date</th>#}
                     <th></th>
 
@@ -105,6 +111,7 @@
                     <th></th>
                     <th></th>
                     <th></th>
+
                 </tr>
                 </tfoot>
             </table>

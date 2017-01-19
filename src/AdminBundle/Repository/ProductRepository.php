@@ -10,6 +10,21 @@ namespace AdminBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findProductByLocale($id, $locale)
+    {
+        $locale = strtoupper($locale);
+        $result = $this->createQueryBuilder('product')
+            ->select('product.id', "product.title$locale AS title", "product.description$locale AS description")
+            ->where('product.id = :id')
+            ->setParameters([
+                'id' => $id
+            ])
+
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+        return $result;
+    }
 
     public function findProduct()
     {

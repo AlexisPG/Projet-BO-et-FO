@@ -1,7 +1,7 @@
 admin:
     resource: "@AdminBundle/Controller/"
     type:     annotation
-    prefix:   /admin
+    prefix:   /{_locale}/admin
 
 
 app:

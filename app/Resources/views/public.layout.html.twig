@@ -37,7 +37,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Start Bootstrap</a>
+      <a class="navbar-brand" href="{{ url("public_homepage") }}">Accueil du site public</a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -50,6 +50,24 @@
         </li>
         <li>
           <a href="#">Contact</a>
+        </li>
+        <li>
+          {% if is_granted('IS_AUTHENTICATED_FULLY')  %}
+            <a>Vous êtes connecté {{ app.user.username }}</a>
+          {%  endif %}
+        </li>
+        <li>
+          {% if is_granted('IS_AUTHENTICATED_FULLY')  %}
+            <a href="{{ url("security.logout") }}">Deconnexion</a>
+            {% else %}
+              <a href="{{ url("security.login") }}">Connexion</a>
+          {%  endif %}
+
+        </li>
+        <li>
+          {% if is_granted('ROLE-ADMIN')  %}
+            <a href="{{ url("") }}">Administration</a>
+          {%  endif %}
         </li>
       </ul>
     </div>

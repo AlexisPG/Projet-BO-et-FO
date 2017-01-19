@@ -1,0 +1,39 @@
+{% extends "public.layout.html.twig" %}
+
+{% block stylesheets %}
+    <!-- Custom CSS -->
+    <link href="{{ asset('public/css/shop-item.css') }}" rel="stylesheet">
+{%  endblock %}
+
+
+{% block body %}
+
+    {% set locale = app.request.locale %}
+    {{  attribute(result, 'title' ~ locale) }}
+{#
+    <div class="col-md-3">
+        {% block nav %}
+            <!-- SIDEBAR -->
+            {% include 'Public/Partials-public/sidebar.html.twig' %}
+        {% endblock nav %}
+    </div>
+
+    <h1>Traduction</h1>
+    <p>{{ 1000 | localizednumber }}</p>
+    <p>{{ '2000-01-01' | localizeddate }}</p>
+    <p>{{ 20 | localizedcurrency('EUR') }}</p>
+    <p>{{ 'text.content' | trans }}</p>
+    <p>{{ 'text.placeholder' | trans( { '%name%' : 'Alexis' }) }}</p>
+
+    <h1>{{  'admin.homepage' | trans( {}, 'admin') }}</h1>
+    {% set route = app.request.get('_route') %}
+    {% set route_params = app.request.get('_route_params') %}
+
+    <ul>
+        {%  for locale in locales %}
+            {% set route_merge = route_params | merge( {'_locale' : locale } ) %}
+            <li><a href="{{ url(route, route_merge) }}">{{ locale }}</a></li>
+            {%  endfor %}
+    </ul>
+    {{ dump(route) }}#}
+{% endblock body %}
