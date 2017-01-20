@@ -42,8 +42,18 @@
     </p>
 
     <p>
-        {{  form_label(form.email, 'Email :') }}
+        {{  form_label(form.email, 'Email:') }}
         {{  form_widget(form.email) }}
+    </p>
+
+    <p>
+        {{  form_label(form.birthday, 'Date de naissance:') }}
+        {{  form_widget(form.birthday) }}
+    </p>
+
+    <p>
+        {{  form_label(form.avatar, 'Avatar :') }}
+        {{  form_widget(form.avatar) }}
     </p>
 
     <p>
@@ -54,6 +64,8 @@
         {{  form_errors(form.username) }}
         {{  form_errors(form.password) }}
         {{  form_errors(form.email) }}
+        {{  form_errors(form.birthday) }}
+        {{  form_errors(form.avatar) }}
     </p>
     {{  form_end(form) }}
 

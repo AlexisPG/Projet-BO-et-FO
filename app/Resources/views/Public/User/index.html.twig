@@ -1,0 +1,35 @@
+{% extends "public.layout.html.twig" %}
+
+{% block stylesheets %}
+    <!-- Custom CSS -->
+    <link href="{{ asset('public/css/shop-item.css') }}" rel="stylesheet">
+{%  endblock %}
+
+
+{% block body %}
+
+    <div class="col-md-3">
+        {% block nav %}
+            <!-- SIDEBAR -->
+            {% include 'Public/Partials-public/sidebar.html.twig' %}
+        {% endblock nav %}
+    </div>
+
+    {# Affichage du message de success	#}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">{#Permet de mettre le message en vert, au niveau de la class#}
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    <div class="box">
+        <div class="box-header">
+            {% if is_granted('IS_AUTHENTICATED_FULLY')  %}
+                <h1>Profile de : {{ app.user.username }}</h1>
+                <h2>Votre email : {{ app.user.email }}</h2>
+                <h2>Votre date de naissance : {{ app.user.birthday }}</h2>
+                <a href="#" class="btn btn-primary">Editer le profil {{ app.user.username }}</a>
+            {%  endif %}
+        </div>
+    </div>
+
+{% endblock body %}

@@ -52,11 +52,11 @@
                 {% for category in categories %}
                     <tr>
                         <td>{{ category.id }}</td>
-                        <td>{{ category.title|default('Produit sans nom') }}</td>
+                        <td>{{ category.title|default('Produit sans nom')|raw }}</td>
                         <td>{{ category.description|raw|nl2br|slice(0, 50) }} - {{ category.description|length }} caractères</td>
                         <td>{{ category.position }} </td>
                         <td><a href="{{ path("show_category", { id:category.id }) }}" class="btn btn-success">Voir</a></td>
-                        <td><a href="{{ path("edit", { id:category.id }) }}" class="btn btn-primary">Modifier</a></td>
+                        <td><a href="{{ path("edit_category", { id:category.id }) }}" class="btn btn-primary">Modifier</a></td>
                         <td><a href="{{ path("category_remove", { id:category.id }) }}" class="btn btn-danger">Supprimer</a></td>
                     </tr>
                 {% endfor %}

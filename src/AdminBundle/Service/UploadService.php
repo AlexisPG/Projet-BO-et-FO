@@ -30,7 +30,6 @@ class UploadService
         $image->move($this->uploadDir, $imageName);
 
         return $imageName;
-
     }
 
 }

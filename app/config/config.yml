@@ -10,6 +10,7 @@ imports:
 parameters:
     locale: en
     upload_dir: upload/
+    upload_dir_avatar: upload/avatar/
     locales: [fr, en]
     upload_dir_default_img: logo.png
 

@@ -50,6 +50,18 @@ class User implements UserInterface, \Serializable
      */
     private $token;
 
+    /**
+     * @var date
+     * @ORM\Column(type="date", name="birthday")
+     */
+    private $birthday;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=40, name="avatar")
+     */
+    private $avatar;
+
     public function __construct()
     {
         $this->isActive = true;
@@ -222,5 +234,29 @@ class User implements UserInterface, \Serializable
     public function removeRole(\AppBundle\Entity\Role $role)
     {
         $this->roles->removeElement($role);
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     *
+     * @return User
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 }

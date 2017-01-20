@@ -26,13 +26,16 @@ class TranslationController extends Controller
 
     public function indexActions(Request $request)
     {
+        // Permet de connaitre la langue
+        /*dump($request->getLanguages()); exit;*/
+
         $locale = $request->getLocale();
         $doctrine = $this->getDoctrine();
 /*        $result = $doctrine
             ->getRepository('AdminBundle:Product')
             ->findProductByLocale(1, $locale);
 
-        dump($result); exit;*/
+        */
 
         $result = $doctrine
             ->getRepository("AdminBundle:Product")

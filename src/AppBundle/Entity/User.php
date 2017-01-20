@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Table(name="app_user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\EntityListeners({"AdminBundle\Listener\UserListener"})
  */
 class User implements UserInterface, \Serializable
 {
@@ -49,6 +50,18 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="token", length=60, unique=true)
      */
     private $token;
+
+    /**
+     * @var date
+     * @ORM\Column(type="date", name="birthday")
+     */
+    private $birthday;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=40, name="avatar")
+     */
+    private $avatar;
 
     public function __construct()
     {
@@ -246,5 +259,53 @@ class User implements UserInterface, \Serializable
     public function getToken()
     {
         return $this->token;
+    }
+
+    /**
+     * Set birthday
+     *
+     * @param \DateTime $birthday
+     *
+     * @return User
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    /**
+     * Get birthday
+     *
+     * @return \DateTime
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param string $avatar
+     *
+     * @return User
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 }

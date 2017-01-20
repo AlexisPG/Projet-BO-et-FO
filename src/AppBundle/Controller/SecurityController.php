@@ -29,7 +29,7 @@ class SecurityController extends Controller
         {
             return new Response("
 <h1>Visible par l'Admin</h1>
-<h2>Hey ouai mec ;)</h2>
+
 ");
         }
         else
@@ -77,6 +77,7 @@ class SecurityController extends Controller
         $form->handleRequest($request);
 
 
+
         if($form->isSubmitted() && $form->isValid())
         {
             $data = $form->getData();
@@ -97,7 +98,7 @@ class SecurityController extends Controller
             // Assignation du token et de ISActive A à 0 à l'utilisateur
             $data
                 ->setToken($token)
-                ->setIsActive(0)
+                ->setIsActive(1)
             ;
 
 
@@ -108,7 +109,7 @@ class SecurityController extends Controller
 
             // Envoi du mail
 
-/*            $message = \Swift_Message::newInstance()
+            $message = \Swift_Message::newInstance()
                 ->setSubject('Formulaire de création de compte')
                 ->setFrom($data->getEmail())
                 ->setTo('contact@monsupersite.com')
@@ -128,7 +129,7 @@ class SecurityController extends Controller
                         ]),
                     'text/plain'
                 );
-            $this->get('mailer')->send($message);*/
+            $this->get('mailer')->send($message);
 
             // Affichage d'un message de succes
             $this->addFlash('success', 'Votre email a bien été envoyé');

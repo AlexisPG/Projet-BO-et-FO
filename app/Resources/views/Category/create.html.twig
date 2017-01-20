@@ -13,7 +13,9 @@
     {% endfor %}
     {{ form_errors(formCategory) }}
 
-    {{ form_start(formCategory) }}
+    {{ form_start(formCategory,  {
+        attr: {'novalidate':'novalidate'}
+    }) }}
 
     {{ form_row(formCategory) }}
 
@@ -22,3 +24,14 @@
     {{ form_end(formCategory) }}
 
 {% endblock content %}
+
+{% block javascript %}
+    {{  parent() }}
+    <script src="{{ asset('plugins/ckeditor/ckeditor.js') }}"></script>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace( 'adminbundle_category_title' );
+    </script>
+
+{% endblock javascript %}

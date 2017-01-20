@@ -7,7 +7,9 @@
             {{ flash_message }}
         </div>
     {% endfor %}
-    {{ form_start(formCategory) }}
+    {{ form_start(formCategory, {
+        attr: {'novalidate':'novalidate'}
+    }) ) }}
 
     {{ form_row(formCategory) }}
 
