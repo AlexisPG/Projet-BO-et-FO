@@ -23,7 +23,7 @@ class SecurityController extends Controller
     /**
      * @Route("/acces-client", name="security.acces-client")
      */
-    public function accesClientAction()
+    public function accessClientAction()
     {
         if($this->isGranted('ROLE_ADMIN'))
         {
@@ -98,7 +98,7 @@ class SecurityController extends Controller
             // Assignation du token et de ISActive A à 0 à l'utilisateur
             $data
                 ->setToken($token)
-                ->setIsActive(1)
+                ->setIsActive(false)
             ;
 
 
@@ -140,6 +140,54 @@ class SecurityController extends Controller
         return $this->render("Public/Security/signup.html.twig", [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/mail_valid/{mail}/{token}", name="security.mail_valid")
+     */
+    public function mail_validAction($mail, $token)
+    {
+        //appel de doctrine pour la gestion bdd
+        $doctrine = $this->getDoctrine();
+        //chargement de em, indispensable pour le flush
+        $em = $doctrine->getManager();
+        //chargement de la table User dans la variable rcRole
+        $rcRole = $doctrine->getRepository('AppBundle:User');
+        //double test qui renvoi la ligne si les deux valeurs sont trouvées
+        $user_compte = $rcRole->findOneBy([
+            'email' => $mail,
+            'token' => $token,
+        ]);
+        //dump('coucou');die;
+        //vérification si la variable à un contenu
+        if (isset($user_compte)) {
+            //si oui compte active
+            $user_compte->setisActive(true);
+            //optionnel mais prépare le flush
+            $em->persist($user_compte);
+            //dump("bdd MAJ à venir");die;
+            //mise à jour bdd
+            $em->flush();
+
+            //dump("bdd MAJ ok");die;
+
+            //message de succès, qui sera affiché à la page appelée
+            $this->addFlash('success', 'votre compte à bien été validé. Vous pouvez maintenant vous connecter');
+            //appel de la page de connexion qui affichera le message de succès
+            return $this->redirectToRoute('security.login');
+            //renvoi sur la page de connexion avec message de compte validé
+        } else { // si la varibale user_compte est null alors
+            //recherche sur le mail seul
+            $user_email = $rcRole->findOneBy([
+                'email' => $mail,
+            ]);
+            //si le mail existe
+            if (isset($user_email)) {
+                //message d'erreur, préciser qu'il est possible de demander une nouvelle validation en demandant le  renvoi d'un mail.
+            } else {//si le mail ,n'existe pas, c'est une tentative de violation de notre site, prévoir une page adaptée !
+            }
+        }
+
     }
 
 

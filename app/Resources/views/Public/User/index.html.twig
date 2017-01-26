@@ -24,10 +24,11 @@
     <div class="box">
         <div class="box-header">
             {% if is_granted('IS_AUTHENTICATED_FULLY')  %}
+                <img style="max-width:200px; float: left; margin-right: 10px;" src="{{ asset('upload/' ~ app.user.avatar) }}">
                 <h1>Profile de : {{ app.user.username }}</h1>
                 <h2>Votre email : {{ app.user.email }}</h2>
-                <h2>Votre date de naissance : {{ app.user.birthday }}</h2>
-                <a href="#" class="btn btn-primary">Editer le profil {{ app.user.username }}</a>
+                <h2>Votre date de naissance : {{ app.user.birthday|date("d/m/Y") }}</h2>
+                <a href="{{ path("profile.edit") }}" class="btn btn-primary">Editer le profil {{ app.user.username }}</a>
             {%  endif %}
         </div>
     </div>

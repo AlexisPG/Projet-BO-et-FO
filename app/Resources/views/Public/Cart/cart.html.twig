@@ -1,0 +1,61 @@
+<!-- Cart -->
+
+{% if app.session.get('cart') | length > 0 %}
+    <div class="list-group-item">
+        <h2>Votre panier :</h2>
+        <table>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+            {% for key,value in  app.session.get('cart')['id']  %}
+                <tr>
+                    <td class="col-md-11">
+                        <img src="{{ asset('upload/' ~ app.session.get('cart')['image'][key] )}}" width="15px">
+                        {{ app.session.get('cart')['title'][key] }} -
+                        quantité : {{ app.session.get('cart')['qte'][key] }}
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" href="{{ path("cart_supp", {'id' : app.session.get('cart')['id'][key]} ) }}">x</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td><br>
+                    Total panier : {{ app.session.get('total_panier')|localizedcurrency('EUR') }}<br>
+                </td>
+            </tr>
+            <tr>
+                <td><br>
+                    <a class="btn btn-success" href="{{ path("cart_valid") }}">Commander mon panier</a><br>
+                </td>
+            </tr>
+            <tr>
+                <td><br>
+                    <a class="btn btn-danger" href="{{ path("cart_remove") }}">Vider mon panier</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endif %}
+
+
+
+{#
+{% if app.session.get('cart') | length > 0 %}
+    <div style="display: block;" class=" list-group-item">
+        <h2>Votre panier :</h2>
+        <ul class="list-unstyled">
+            {% for key,value in  app.session.get('cart')['id']  %}
+                <li><img src="{{ asset('upload/' ~ app.session.get('cart')['image'][key] )}}" width="15px">
+                    {{ app.session.get('cart')['title'][key] }} -
+                    quantité : {{ app.session.get('cart')['qte'][key] }}
+
+                    <a class="btn btn-danger" href="{{ path("cart_supp", {'id' : app.session.get('cart')['id'][key]} ) }}">x</a></li>
+            {% endfor %}
+        </ul>
+        Total panier : {{ app.session.get('total_panier') }}€<br>
+        <a class="btn btn-success" href="{{ path("cart_valid") }}">Commander mon panier</a><br>
+        <a class="btn btn-danger" href="{{ path("cart_remove") }}">Vider mon panier</a>
+    </div>
+{% endif %}#}

@@ -202,4 +202,18 @@ class CategoryController extends Controller
     }
 
 
+
+    public function renderCountCategoriesAction()
+    {
+        $em = $this->getDoctrine();
+        $query = $em->getRepository("AdminBundle:Category");
+
+        $countCategories = $query->myFindqNumberCategory();
+
+
+        return $this->render('Category/renderCountCategories.html.twig', [
+            'countCategories' => $countCategories
+        ]);
+    }
+
 }

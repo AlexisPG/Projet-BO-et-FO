@@ -40,19 +40,21 @@
         <!-- Page Features -->
         <div class="row text-center">
             {% for product in products %}
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <img style="width:auto; margin: auto; height: 120px;" src="{{ asset('upload/' ~ product.image) }}" alt="">
-                    <div class="caption">
-                        <h3>{{ product.title }}</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="{{ path("voir_produit", { id:product.id }) }}" class="btn btn-primary">Buy Now!</a>
-                            <a href="{{ path("voir_produit", { id:product.id }) }}" class="btn btn-default">More Info</a>
-                        </p>
+
+                    <div class="col-md-3 col-sm-6 hero-feature">
+                        <div class="thumbnail">
+                            <img style="width:auto; margin: auto; height: 120px;" src="{{ asset('upload/' ~ product.image) }}" alt="">
+                            <div class="caption">
+                                <h3>{{ product.titleFR }}</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <p>
+                                    <a href="{{ path("voir_produit", { id:product.id }) }}" class="btn btn-primary">Buy Now!</a>
+                                    <a href="{{ path("voir_produit", { id:product.id }) }}" class="btn btn-default">More Info</a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+
             {% endfor %}
         </div>
         <!-- /.row -->

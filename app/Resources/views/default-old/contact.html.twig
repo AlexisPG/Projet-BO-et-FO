@@ -9,7 +9,21 @@
             </div>
         </div>
     </div>
-    {{ dump(firstname) }}
+
+    <table class="table table-str-striped">
+        <tr>
+            <th>IP</th>
+            <th>Date</th>
+        </tr>
+    {% for line in fileCSV %}
+        {%  set data = line| split(';') %}
+        <tr>
+            <td>{{ data[0] }}</td>
+            <td>{{ data[1] }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
 
 
 {% endblock body %}

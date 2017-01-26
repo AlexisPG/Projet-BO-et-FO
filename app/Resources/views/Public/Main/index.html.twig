@@ -13,9 +13,7 @@
 {% block body %}
     <!-- Page Content -->
     <div class="container">
-
         <div class="row">
-
             <div class="col-md-3">
                 {% block nav %}
                     <!-- SIDEBAR -->
@@ -32,10 +30,12 @@
                     {% for product in products %}
                         <div class="col-sm-4 col-lg-4 col-md-4">
                             <div class="thumbnail">
-                                <img style="width:auto; margin: auto; height: 120px;" src="{{ asset('upload/' ~ product.image) }}" alt="{{ asset(product.titleFR) }}">
+                                <a href="{{ path("voir_produit", { id:product.id }) }}">
+                                    <img style="width:auto; margin: auto; height: 120px;" src="{{ asset('upload/' ~ product.image) }}" alt="{{ asset(product.titleFR) }} ">
+                                </a>
                                 <div class="caption">
                                     <h4 class="pull-right">{{ product.price }} €</h4>
-                                    <h4><a href="#">{{ product.titleFR }}</a>
+                                    <h4><a href="{{ path("voir_produit", { id:product.id }) }}">{{ product.titleFR }}</a>
                                     </h4>
                                     <p>{{ product.descriptionFR }} <a target="_blank" href="#">Lien ></a></p>
                                 </div>

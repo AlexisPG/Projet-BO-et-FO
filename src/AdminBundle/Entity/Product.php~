@@ -51,12 +51,12 @@ class Product
 
     /**
      * @var string
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="product.descriptionFR")
      * @Assert\Length(
      *     min = 5,
      *     minMessage = "{{ limit }} caractères min",
      *     max = 100,
-     *     maxMessage = "{{ limit }} caractères max",
+     *     maxMessage = "{{ limit }} caractères max"
      * )
      * @ORM\Column(name="descriptionFR", type="text")
      */
@@ -64,7 +64,7 @@ class Product
 
     /**
      * @var string
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="product.descriptionEN")
      * @Assert\Length(
      *     min = 5,
      *     minMessage = "{{ limit }} caractères min",

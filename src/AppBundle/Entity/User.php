@@ -8,7 +8,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Table(name="app_user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
- * @ORM\EntityListeners({"AdminBundle\Listener\UserListener"})
  */
 class User implements UserInterface, \Serializable
 {

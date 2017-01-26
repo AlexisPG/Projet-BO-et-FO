@@ -33,6 +33,8 @@ class UserFormSubscriber implements EventSubscriberInterface
         if($entity->getId())
         {
             $form->remove('birthday');
+            $form->remove('password');
+
         }
     }
 

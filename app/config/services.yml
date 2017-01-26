@@ -8,10 +8,22 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
+    app.subscriber.visit.events:
+        class: AppBundle\Subscriber\VisitEventsSubscriber
+        tags:
+            - { name: kernel.event_subscriber }
+
+    admin.subscriber.kernel.events:
+        class: AdminBundle\Subscriber\KernelEventsSubscriber
+        arguments: [ '@twig', '@session' ]
+        tags:
+            - { name: kernel.event_subscriber }
+
     admin.subscriber.category.form:
         class: AdminBundle\Subscriber\CategoryFormSubscriber
         tags:
             - { name: kernel.event_subscriber }
+
     admin.subscriber.user.form:
         class: AdminBundle\Subscriber\UserFormSubscriber
         tags:

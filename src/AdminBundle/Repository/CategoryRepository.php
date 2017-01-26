@@ -19,7 +19,8 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
             SELECT COUNT(cat)
             FROM AdminBundle:Category cat
             ');
-        $query->getResult();
+        return $query->getSingleScalarResult();
+
     }
 
     public function displayCategories()

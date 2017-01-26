@@ -40,8 +40,7 @@ class PublicController extends Controller
         $categories = $query->displayCategories();
 
         return $this->render('Public/Category/renderCategories.html.twig', [
-            "categories" => $categories
+            "categories" => $categories,
         ]);
     }
-
 }

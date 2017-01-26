@@ -47,7 +47,6 @@ class CategoryController extends Controller
   	    $products = $em->getRepository('AdminBundle:Product')->findAllProductFromCategory($id, $offset);
 
 
-
         // LE BON ID ($id doit correspondre à un id existant dans $products)
         return $this->render('Public/Category/show.html.twig',
             [

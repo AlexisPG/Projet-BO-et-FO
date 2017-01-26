@@ -3,6 +3,8 @@
 namespace AdminBundle\Controller;
 
 
+use AppBundle\Event\VisitContactEvent;
+use AppBundle\Event\VisitEvents;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,8 +17,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class DefaultController extends Controller
 {
+
     /**
-     * @Route("/")
+     * @Route("/", name="welcome.symfony")
      */
     public function indexAction()
     {
@@ -42,6 +45,7 @@ class DefaultController extends Controller
      */
     public function contactAction(Request $request)
     {
+
         // Création du formulaire et ajoute de champ avec la méthode add()
         $formContact = $this->createFormBuilder()
             ->add('firstname', TextType::class, [
@@ -104,7 +108,6 @@ class DefaultController extends Controller
 
             // La technique à utiliser est d'utiliser une variable ex: $data et de manipuler cette variable
             $data = $formContact->getData();
-
             // Envoie du mail
             $message = \Swift_Message::newInstance()
                 ->setSubject('Formulaire de contact')

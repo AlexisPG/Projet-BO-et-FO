@@ -43,13 +43,13 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li>
-          <a href="#">About</a>
+          <a href="{{ url("profile.index") }}">Profile</a>
         </li>
         <li>
-          <a href="#">Services</a>
+          <a href="{{ url("welcome.symfony") }}">Admin</a>
         </li>
         <li>
-          <a href="#">Contact</a>
+          <a href="{{ url("signup") }}">Sign up</a>
         </li>
         <li>
           {% if is_granted('IS_AUTHENTICATED_FULLY')  %}
@@ -59,8 +59,8 @@
         <li>
           {% if is_granted('IS_AUTHENTICATED_FULLY')  %}
             <a href="{{ url("security.logout") }}">Deconnexion</a>
-            {% else %}
-              <a href="{{ url("security.login") }}">Connexion</a>
+          {% else %}
+            <a href="{{ url("security.login") }}">Connexion</a>
           {%  endif %}
 
         </li>
@@ -76,9 +76,14 @@
   <!-- /.container -->
 </nav>
 
+<div class="container">
+  <div class="row">
 {% block body %}
 
 {% endblock %}
+    </div>
+  </div>
+
 
 
 <div class="container">
@@ -94,6 +99,29 @@
 
 <!-- Bootstrap Core JavaScript -->
 <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
+
+{% block javascript %}
+  <script>
+    var btnCookie = $('.Cookies a');
+    btnCookie.on('click', clicBtnCookie);
+
+    function clicBtnCookie(e) {
+      e.preventDefault();
+      $.ajax({
+        method: 'POST',
+        url: 'http://localhost/symfony/web/app_dev.php/disclaimer-cookies', // méthode récupérée par la route
+        data: 'disclaimer=1', // Quelles sont les informations qu'on envoie
+        success: onSuccess
+      });
+
+      function onSuccess(data){
+        btnCookie.parent().slideUp();
+        console.log(data);
+      }
+    }
+  </script>
+{% endblock javascript %}
+
 
 </body>
 

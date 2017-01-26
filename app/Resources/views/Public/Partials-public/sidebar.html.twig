@@ -1,3 +1,10 @@
+
+    {% block cart %}
+        <!-- CART -->
+        {% include 'Public/Cart/cart.html.twig' %}
+    {% endblock cart %}
+
+
 <p class="lead">Shop Name</p>
 <div class="list-group">
   {{ render(controller("AppBundle:Public:renderCategories")) }}
