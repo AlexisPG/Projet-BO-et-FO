@@ -177,7 +177,7 @@ class CartController extends Controller
         //dump('coucou');die;
         $cart =  $request->getSession()->get('cart');
         $total =  $request->getSession()->get('total_panier');
-        $idValue = array_search($id,$cart['id']);
+        $idValue= array_search($id,$cart['id']);
 
         $em = $this->getDoctrine()->getManager();
         $product_infos = $em->getRepository('AdminBundle:Product')->findProductById($id);

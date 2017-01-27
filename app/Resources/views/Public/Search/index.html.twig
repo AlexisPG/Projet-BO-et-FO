@@ -1,0 +1,44 @@
+{% extends "public.layout.html.twig" %}
+
+{% block stylesheets %}
+    <!-- Custom CSS -->
+    <link href="{{ asset('public/css/shop-item.css') }}" rel="stylesheet">
+{%  endblock %}
+
+{# app/Resources/views/security/login.html.twig #}
+{# ... you will probably extend your base template, like base.html.twig #}
+{%  block body %}
+
+    <h1>Rechercher</h1>
+    <form>
+        <input type="search">
+        <input type="submit">
+    </form>
+    <script src="{{  asset('public/js/jquery.js') }}"></script>
+    <script>
+        var search = $('input[type="search"]');
+        search.on('keyup', searchAjax);
+
+        function searchAjax(e){
+            var value = $(this).val()
+            $.ajax({
+                method: "GET",
+                    url: '/search-ajax',
+                    data: 'data=' + value,
+                    dataType: 'json',
+                success: onSuccessAjax
+            })
+
+            function onSuccessAjax(data){
+                $.each(data,createHTML);
+            }
+
+            function createHTML(index, value)
+            {
+                $('body').append('<p>' + value.titleFR + '</p>');
+            }
+
+        }
+    </script>
+
+{% endblock body %}

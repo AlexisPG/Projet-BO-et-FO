@@ -10,6 +10,19 @@ namespace AdminBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function searchByName($data){
+        $results = $this
+            ->createQueryBuilder('product')
+            ->select('product.id, product.titleFR')
+            ->where('product.titleFR LIKE :title')
+            ->setParameters([
+                'title' => "%$data%"
+                ])
+            ->getQuery()
+            ->getResult()
+        ;
+        return $results;
+    }
 
     public function findProductById($id){
         $result = $this->createQueryBuilder('product')

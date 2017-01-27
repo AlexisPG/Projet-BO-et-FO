@@ -4,7 +4,12 @@
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1><span>Welcome to</span> Symfony {{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION') }}</h1>
+                <h1><span>Welcome to</span> Symfony {{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION') }}
+                <ul>
+                    <li><a href="{{ url("public_homepage") }}">Accéder au site public</a></li>
+                    <li>Ho</li>
+                    <li>Hey</li>
+                </ul></h1>
             </div>
 
             <div id="status">
